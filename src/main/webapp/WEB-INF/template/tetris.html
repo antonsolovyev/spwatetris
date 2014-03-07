@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <style>
+        </style>
+    </head>
+
+    <body>
+        <script type="text/javascript" src="script/jquery/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="/script/tetris.js"></script>
+        
+        <script type="text/javascript">
+            //<![CDATA[
+            jQuery(document).ready(function()
+            {
+                TETRIS.main(
+                {
+                    windowHeight : jQuery(window).height(),
+                    windowWidth : jQuery(window).width(),
+                    
+                    previewCanvas : jQuery('#previewCanvas')[0],
+                    gameCanvas : jQuery('#gameCanvas')[0],
+                    
+                    dropButton : jQuery('#dropButton'),
+                    moveLeftButton : jQuery('#moveLeftButton'),
+                    moveRightButton : jQuery('#moveRightButton'),
+                    rotateClockwiseButton : jQuery('#rotateClockwiseButton'),
+                    rotateCounterClockwiseButton : jQuery('#rotateCounterClockwiseButton'),
+                    
+                    newGameButton : jQuery('#newGameButton'),
+                    pauseButton : jQuery('#pauseButton'),
+                    highScoreButton : jQuery('#highScoreButton'),
+                    previewCheckBox : jQuery('#previewCheckBox'),
+                    gridCheckBox : jQuery('#gridCheckBox'),
+        
+                    scoreSpan : jQuery('#scoreSpan'),
+                    speedSpan : jQuery('#speedSpan'),
+                    linesSpan : jQuery('#linesSpan'),
+                    piecesSpan : jQuery('#piecesSpan')
+                });
+            });
+            //]]>   
+        </script>
+    
+        <table border="1">
+            <tr>
+                <td>
+                    <canvas id="previewCanvas"/>
+                </td>
+                <td rowspan="2">
+                    <canvas id="gameCanvas"/>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="submit" id="newGameButton" value="New game"></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="submit" id="pauseButton" value="Pause"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="submit" id="highScoreButton" value="HighScores"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="previewCheckBox">Show preview</input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="gridCheckBox">Show grid</input>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table border="1">
+                        <tr>
+                            <td>Score:</td>
+                            <td><span id="scoreSpan"/></td>
+                        </tr>
+                        <tr>
+                            <td>Speed:</td>
+                            <td><span id="speedSpan"/></td>
+                        </tr>
+                        <tr>
+                            <td>Lines:</td>
+                            <td><span id="linesSpan"/></td>
+                        </tr>
+                        <tr>
+                            <td>Pieces:</td>
+                            <td><span id="piecesSpan"/></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td rowspan="2">
+                                <input type="submit" id="moveLeftButton" value="&larr;"/>
+                            </td>
+                            <td>
+                                <input type="submit" id="rotateCounterClockwiseButton" value="&cularr;"/>
+                            </td>
+                            <td rowspan="2">
+                                <input type="submit" id="moveRightButton" value="&rarr;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="submit" id="rotateClockwiseButton" value="&curarr;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" align="center">
+                                <input type="submit" id="dropButton" value="&darr;"/>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    
+    </body>
+</html> 
