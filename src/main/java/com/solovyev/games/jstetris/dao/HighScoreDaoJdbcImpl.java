@@ -1,65 +1,68 @@
 package com.solovyev.games.jstetris.dao;
 
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.sql.*;
+import java.util.*;
 import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
 import com.solovyev.games.jstetris.HighScore;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 
 public class HighScoreDaoJdbcImpl implements HighScoreDao
 {
-    private static final Logger logger = Logger.getLogger(HighScoreDaoJdbcImpl.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(HighScoreDaoJdbcImpl.class.getName());
 
-    private JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     public HighScoreDaoJdbcImpl(DataSource dataSource)
     {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+        namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<HighScore> getHighScores()
     {
-        List<HighScore> highScores = jdbcTemplate.query(
-                "select * from high_score order by score desc, date desc;", new ParameterizedRowMapper<HighScore>()
+        String query = "select * from HIGH_SCORE" +
+            " order by SCORE desc, CREATION_DATE desc limit :maxHighScoreRecords;";
+
+        RowMapper<HighScore> rowMapper = new RowMapper<HighScore>()
+            {
+                @Override
+                public HighScore mapRow(ResultSet rs, int rowNum) throws SQLException
                 {
-                    @Override
-                    public HighScore mapRow(ResultSet rs, int rowNum) throws SQLException
-                    {
-                        String name = rs.getString("NAME");
-                        Integer score = rs.getInt("SCORE");
-                        Date date = rs.getDate("DATE");
+                    return new HighScore(rs.getLong("ID"), rs.getString("NAME"), rs.getInt("SCORE"),
+                            getTimestampAsDate(rs, "CREATION_DATE"));
+                }
+            };
 
-                        return new HighScore(name, score, date);
-                    }
-                    ;
-                });
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("maxHighScoreRecords", MAX_HIGH_SCORE_RECORDS);
 
-        List<HighScore> res = highScores.subList(0, MAX_HIGH_SCORE_RECORDS);
+        return namedParameterJdbcTemplate.query(query, mapSqlParameterSource, rowMapper);
+    }
 
-        return res;
+    private java.util.Date getTimestampAsDate(ResultSet rs, String column) throws SQLException
+    {
+        Timestamp ts = rs.getTimestamp(column);
+
+        return (ts == null) ? null : new java.util.Date(ts.getTime());
     }
 
     @Override
-    @Transactional(readOnly = true)
     public boolean isHighScore(Integer score)
     {
-        Map<String, Object> map = jdbcTemplate.queryForMap(
-                "select count(*) as count, min(score) as min from high_score;");
-        Long count = (Long) map.get("COUNT");
-        Integer min = (Integer) map.get("MIN");
+        String query = "select count(*) as COUNT, min(SCORE) as min from HIGH_SCORE;";
+        Map<String, Object> map = namedParameterJdbcTemplate.queryForMap(query, new MapSqlParameterSource());
+
+        Long count = (Long) map.get("count");
+        Integer min = (Integer) map.get("min");
 
         boolean res = false;
         if ((count < MAX_HIGH_SCORE_RECORDS) || ((min != null) && (score >= min)))
@@ -71,14 +74,25 @@ public class HighScoreDaoJdbcImpl implements HighScoreDao
     }
 
     @Override
-    @Transactional(readOnly = false)
-    public void saveHighScore(HighScore highScore)
+    public HighScore saveHighScore(HighScore highScore)
     {
-        jdbcTemplate.update("insert into high_score (name, score, date) values (?, ?, ?)",
-            highScore.getName(), highScore.getScore(), highScore.getDate());
+        String query = "insert into HIGH_SCORE (NAME, SCORE, CREATION_DATE)" +
+            " values (:name, :score, :creationDate)";
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource();
+        mapSqlParameterSource.addValue("name", highScore.getName());
+        mapSqlParameterSource.addValue("score", highScore.getScore());
+        mapSqlParameterSource.addValue("creationDate", highScore.getDate());
 
-        jdbcTemplate.update(
-            "delete from high_score where id not in (select top ? id from high_score order by score desc, date desc);",
-            MAX_HIGH_SCORE_RECORDS);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        namedParameterJdbcTemplate.update(query, mapSqlParameterSource, keyHolder, new String[] { "id" });
+
+        String query2 = "delete from HIGH_SCORE where ID not in (select ID from HIGH_SCORE" +
+            " order by SCORE desc, CREATION_DATE desc limit :maxHighScoreRecords)";
+        MapSqlParameterSource mapSqlParameterSource2 = new MapSqlParameterSource();
+        mapSqlParameterSource2.addValue("maxHighScoreRecords", MAX_HIGH_SCORE_RECORDS);
+        namedParameterJdbcTemplate.update(query2, mapSqlParameterSource2);
+
+        return new HighScore(keyHolder.getKey().longValue(), highScore.getName(), highScore.getScore(),
+                highScore.getDate());
     }
 }

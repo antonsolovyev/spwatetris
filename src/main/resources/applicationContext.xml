@@ -33,8 +33,6 @@
         </constructor-arg>
     </bean>
 
-    <!--<bean id="highScoreDatastoreDao" class="com.solovyev.games.jstetris.dao.HighScoreDaoDatastoreImpl"/>-->
-
     <bean id="highScoreResource" class="com.solovyev.games.jstetris.HighScoreResource">
         <constructor-arg index="0" ref="highScoreJdbcDao"/>
     </bean>

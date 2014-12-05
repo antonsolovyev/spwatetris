@@ -17,6 +17,7 @@ import com.sun.jersey.test.framework.AppDescriptor;
 import com.sun.jersey.test.framework.JerseyTest;
 import com.sun.jersey.test.framework.WebAppDescriptor;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -26,6 +27,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.request.RequestContextListener;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyObject;
@@ -36,26 +38,21 @@ public class HighScoreResourceTest extends JerseyTest
 {
     private static final Logger LOGGER = Logger.getLogger(HighScoreResourceTest.class.getName());
 
-    private static AppDescriptor toAppDescriptor(Package[] resourcePackages, String... contexts)
+    private static AppDescriptor toAppDescriptor(String... contexts)
     {
-        final String[] packageNames = new String[resourcePackages.length];
-        for (int i = 0; i < resourcePackages.length; i++)
-        {
-            packageNames[i] = resourcePackages[i].getName();
-        }
+        WebAppDescriptor.Builder builder = new WebAppDescriptor.Builder();
 
-        final WebAppDescriptor.Builder builder = new WebAppDescriptor.Builder(packageNames);
+        builder.contextParam("contextConfigLocation", StringUtils.join(contexts, " "));
+        builder.servletClass(SpringServlet.class);
+        builder.contextListenerClass(ContextLoaderListener.class);
+        builder.requestListenerClass(RequestContextListener.class);
+        builder.initParam("com.sun.jersey.api.json.POJOMappingFeature", "true");
 
-        final StringBuilder contextBuilder = new StringBuilder();
-        for (String context : contexts)
-        {
-            contextBuilder.append(' ').append(context);
-        }
 
         ClientConfig clientConfig = new DefaultClientConfig();
         clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
 
-        builder.contextParam("contextConfigLocation", contextBuilder.toString()).servletClass(SpringServlet.class).initParam("com.sun.jersey.api.json.POJOMappingFeature", Boolean.TRUE.toString()).contextListenerClass(ContextLoaderListener.class).clientConfig(clientConfig);
+        builder.clientConfig(clientConfig);
 
         return builder.build();
     }
@@ -64,7 +61,7 @@ public class HighScoreResourceTest extends JerseyTest
 
     public HighScoreResourceTest() throws Exception
     {
-        super(toAppDescriptor(new Package[] { HighScoreResource.class.getPackage() }, "classpath:applicationContext-test.xml"));
+        super(toAppDescriptor("classpath:applicationContext-resource-test.xml"));
 
         HighScoreDao highScoreDao = mock(HighScoreDao.class);
 
@@ -90,9 +87,9 @@ public class HighScoreResourceTest extends JerseyTest
     @Before
     public void setup()
     {
-        highScores.add(new HighScore("a", 1, new Date()));
-        highScores.add(new HighScore("b", 2, new Date()));
-        highScores.add(new HighScore("c", 3, new Date()));
+        highScores.add(new HighScore(null, "a", 1, new Date()));
+        highScores.add(new HighScore(null, "b", 2, new Date()));
+        highScores.add(new HighScore(null, "c", 3, new Date()));
     }
 
     @After
@@ -126,7 +123,7 @@ public class HighScoreResourceTest extends JerseyTest
     @Test
     public void testSaveHighScore()
     {
-        HighScore highScore = new HighScore("d", 4, new Date());
+        HighScore highScore = new HighScore(null, "d", 4, new Date());
 
         WebResource webResource = resource();
         webResource.path("/saveHighScore").type(MediaType.APPLICATION_JSON).post(highScore);

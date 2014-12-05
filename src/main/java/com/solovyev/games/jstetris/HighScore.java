@@ -1,20 +1,18 @@
 package com.solovyev.games.jstetris;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlRootElement;
 
-
-public class HighScore implements Serializable
+public class HighScore
 {
-    private static final long serialVersionUID = 1L;
-    private String name;
-    private Integer score;
-    private Date date;
+    private final Long id;
+    private final String name;
+    private final Integer score;
+    private final Date date;
 
-    public HighScore(String name, Integer score, Date date)
+    public HighScore(Long id, String name, Integer score, Date date)
     {
+        this.id = id;
         this.name = name;
         this.score = score;
         this.date = date;
@@ -22,6 +20,7 @@ public class HighScore implements Serializable
 
     public HighScore()
     {
+        this(null, null, null, null);
     }
 
     public String getName()
@@ -39,6 +38,22 @@ public class HighScore implements Serializable
         return date;
     }
 
+    public Long getId()
+    {
+        return id;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "HighScore{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", score=" + score +
+            ", date=" + date +
+            '}';
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -51,17 +66,21 @@ public class HighScore implements Serializable
             return false;
         }
 
-        HighScore that = (HighScore) o;
+        HighScore highScore = (HighScore) o;
 
-        if ((date != null) ? (!date.equals(that.date)) : (that.date != null))
+        if ((date != null) ? (!date.equals(highScore.date)) : (highScore.date != null))
         {
             return false;
         }
-        if ((name != null) ? (!name.equals(that.name)) : (that.name != null))
+        if ((id != null) ? (!id.equals(highScore.id)) : (highScore.id != null))
         {
             return false;
         }
-        if ((score != null) ? (!score.equals(that.score)) : (that.score != null))
+        if ((name != null) ? (!name.equals(highScore.name)) : (highScore.name != null))
+        {
+            return false;
+        }
+        if ((score != null) ? (!score.equals(highScore.score)) : (highScore.score != null))
         {
             return false;
         }
@@ -72,20 +91,11 @@ public class HighScore implements Serializable
     @Override
     public int hashCode()
     {
-        int result = (name != null) ? name.hashCode() : 0;
+        int result = (id != null) ? id.hashCode() : 0;
+        result = (31 * result) + ((name != null) ? name.hashCode() : 0);
         result = (31 * result) + ((score != null) ? score.hashCode() : 0);
         result = (31 * result) + ((date != null) ? date.hashCode() : 0);
 
         return result;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "HighScore{" +
-            "name='" + name + '\'' +
-            ", score=" + score +
-            ", date=" + date +
-            '}';
     }
 }

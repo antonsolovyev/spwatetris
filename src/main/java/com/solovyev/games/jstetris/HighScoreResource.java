@@ -12,9 +12,9 @@ import com.solovyev.games.jstetris.dao.HighScoreDao;
 @Path("/")
 public class HighScoreResource
 {
-    private static final Logger logger = Logger.getLogger(HighScoreResource.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(HighScoreResource.class.getName());
 
-    private HighScoreDao highScoreDao;
+    private final HighScoreDao highScoreDao;
 
     public HighScoreResource(HighScoreDao highScoreDao)
     {
@@ -39,6 +39,7 @@ public class HighScoreResource
 
     @POST
     @Path("/saveHighScore")
+    @Consumes({ MediaType.APPLICATION_JSON })
     public void saveHighScore(HighScore highScore)
     {
         highScoreDao.saveHighScore(highScore);

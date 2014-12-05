@@ -30,12 +30,6 @@
     </listener>
 
     <servlet>
-        <servlet-name>dispatcher</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet>
         <servlet-name>jersey</servlet-name>
         <servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
         <init-param>
@@ -46,31 +40,16 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>jersey</servlet-name>
-        <url-pattern>/resources/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>/script/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>/style/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>dispatcher</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
         <servlet-name>jersey</servlet-name>
         <url-pattern>/highScore/*</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>/tetris</welcome-file>
+        <welcome-file>tetris.html</welcome-file>
     </welcome-file-list>
 </web-app>
