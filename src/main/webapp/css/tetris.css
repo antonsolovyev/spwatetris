@@ -1,3 +1,4 @@
+/* Globals */
 body,html
 {
     height: 100%;
@@ -6,13 +7,19 @@ body,html
     border: 0px;
 }
 
-#panel
+.no-close .ui-dialog-titlebar-close
+{
+    display: none;
+}
+
+/* Tetris view */
+#tetrisPanel
 {
     height: 100%;
     width: 100%;    
 }
 
-#mainTable
+#tetrisMainTable
 {
     background-color: #BBBBBB;
     margin-left: auto;
@@ -20,22 +27,22 @@ body,html
     height: 100%;
 }
 
-#leftPanel
+#tetrisLeftPanel
 {
     vertical-align: top;
 }
 
-#middlePanel
+#tetrisMiddlePanel
 {
     height: 100%;    
 }
 
-#rightPanel
+#tetrisRightPanel
 {
     height: 100%;
 }
 
-#middleCell, #rightCell
+#tetrisMiddleCell, #tetrisRightCell
 {
     height: 100%;
 }
@@ -87,7 +94,7 @@ body,html
     width: 100%;
 }
 
-.checkbox
+.conrolCheckbox
 {
     font-size: 1em;
     margin: .75em;
@@ -109,22 +116,60 @@ body,html
     height: 100%;
 }
 
-.no-close .ui-dialog-titlebar-close
-{
-    display: none;
-}
-
+/* High score view */
 #highScorePanel
 {
     margin: 0 auto;
+    border-collapse: collapse;
+}
+
+#highScorePanel td
+{
+    border: thin solid black;
 }
 
 .highScoreCell
 {
     text-align: center;
+    padding: 0px;
 }
 
 #highScoreOkButton
 {
     margin: .75em;
+}
+
+#highScoreTable
+{
+    border-collapse: collapse;
+}
+
+#highScoreTable td, #highScoreTable th
+{
+    border: 1px solid black;
+}
+
+#highScoreTable tr:first-child th
+{
+    border-top: 0;
+}
+
+#highScoreTable tr:last-child td
+{
+    border-bottom: 0;
+}
+
+#highScoreTable tr td:first-child, #highScoreTable tr th:first-child
+{
+    border-left: 0;
+}
+
+#highScoreTable tr td:last-child, #highScoreTable tr th:last-child
+{
+    border-right: 0;
+}
+
+#highScoreTable td
+{
+    text-align: center;
 }

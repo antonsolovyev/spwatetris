@@ -1,10 +1,10 @@
-<table id="panel">
+<table id="tetrisPanel">
     <tr>
         <td>
-            <table id="mainTable">
+            <table id="tetrisMainTable">
                 <tr>
-                    <td id="leftPanel">
-                        <table id="leftCell">
+                    <td id="tetrisLeftPanel">
+                        <table id="tetrisLeftCell">
                             <tr>
                                 <td class="canvasCell" id="previewCell">
                                     <canvas id="previewCanvas"/>
@@ -34,8 +34,8 @@
                             </tr>
                         </table>
                     </td>
-                    <td id="middlePanel">
-                        <table id="middleCell">
+                    <td id="tetrisMiddlePanel">
+                        <table id="tetrisMiddleCell">
                             <tr>
                                 <td class="canvasCell">
                                     <canvas id="gameCanvas"/>
@@ -43,8 +43,8 @@
                             </tr>
                         </table>
                     </td>
-                    <td id="rightPanel">
-                        <table id="rightCell">
+                    <td id="tetrisRightPanel">
+                        <table id="tetrisRightCell">
                             <tr>
                                 <td id="controlButtonCell">
                                     <table id="controlButtonTable" boder="1">
@@ -75,13 +75,13 @@
                                         <tr>
                                             <td>
                                                 <input type="checkbox" id="previewCheckBox"
-                                                       class="checkbox"/><label for="previewCheckBox" class="ui-widget">Show preview</label>
+                                                       class="controlCheckbox"/><label for="previewCheckBox" class="ui-widget">Show preview</label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input type="checkbox" id="gridCheckBox"
-                                                       class="checkbox"/><label for="gridCheckBox" class="ui-widget">Show grid</label>
+                                                       class="controlCheckbox"/><label for="gridCheckBox" class="ui-widget">Show grid</label>
                                             </td>
                                         </tr>
                                     </table>
