@@ -1059,7 +1059,7 @@ TETRIS.tetrisView = function(spec)
     
     that.render = function()
     {
-        container.html(_.template(_.getTemplateFromUrl('/template/tetrisView.html')));
+        container.html(_.template(_.getFromUrl('/template/tetrisView.html')));
 
         windowHeight = jQuery(window).height();
         windowWidth = jQuery(window).width();
@@ -1172,7 +1172,7 @@ TETRIS.highScoresView = function(spec)
         {
             'success': function (highScoreList)
             {
-                var template = _.template(_.getTemplateFromUrl('/template/highScoreView.html'));
+                var template = _.template(_.getFromUrl('/template/highScoreView.html'));
                 
                 that.$el.html(template({'highScoreList': highScoreList.models}));
             }    
@@ -1207,9 +1207,9 @@ TETRIS.application = function(spec)
     
     var showGameOverDialog = function(tetrisEngine)
     {
-        var template = _.template(_.getTemplateFromUrl('/template/gameOverDialog.html'));
+        var template = _.template(_.getFromUrl('/template/gameOverDialog.html'));
 
-        jQuery('#page').append(template({score: tetrisEngine.score}));
+        jQuery('body').append(template({score: tetrisEngine.score})); // Attach to the body, so there's no event confusion
         
         jQuery('#gameOverDialog').dialog(
         {
@@ -1255,9 +1255,9 @@ TETRIS.application = function(spec)
     
     var showNameInputDialog = function(score)
     {
-        var template = _.template(_.getTemplateFromUrl('/template/nameInputDialog.html'));
+        var template = _.template(_.getFromUrl('/template/nameInputDialog.html'));
 
-        jQuery('#page').append(template());
+        jQuery('body').append(template());
         
         jQuery('#nameInputDialog').dialog(
         {
@@ -1315,14 +1315,14 @@ TETRIS.application = function(spec)
     {
         _.mixin(
         {
-            getTemplateFromUrl: function (url)
+            getFromUrl: function(url)
             {
-                var templateHtml = "";
+                var res = "";
                 this.cache = this.cache || {};
 
                 if (this.cache[url])
                 {
-                    templateHtml = this.cache[url];
+                    res = this.cache[url];
                 }
                 else
                 {
@@ -1331,13 +1331,13 @@ TETRIS.application = function(spec)
                         url: url,
                         method: "GET",
                         async: false,
-                        success: function(data){templateHtml = data;}
+                        success: function(data){res = data;}
                     });
 
-                    this.cache[url] = templateHtml;
+                    this.cache[url] = res;
                 }
 
-                return templateHtml;
+                return res;
             }
         });
     }
