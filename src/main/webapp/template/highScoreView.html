@@ -1,0 +1,37 @@
+<table id="highScorePanel" border="1">
+    <tr>
+        <td class="highScoreCell ui-widget-header">
+            <h1>High Scores</h1>
+        </td>
+    </tr>
+    <tr>
+        <td class="highScoreCell">
+            <table id="highScoreTable">
+                <thead class="ui-widget-header">
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                    <th>Date</th>
+                </thead>
+                <tbody>
+                    <% _.each(highScoreList, function(highScore, idx) { %>
+                    <tr>
+                        <td class="ui-widget-content"><%= idx + 1 %></td>
+                        <td class="ui-widget-content"><%= highScore.get('name') %></td>
+                        <td class="ui-widget-content"><%= highScore.get('score') %></td>
+                        <td class="ui-widget-content"><%= moment(new Date(highScore.get('date'))).format('L LT') %></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td class="highScoreCell">
+            <button type="button" id="highScoreOkButton"
+                   class="ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
+                <span class="ui-button-text">OK</span>
+            </button>
+        </td>
+    <tr></tr>
+</table>

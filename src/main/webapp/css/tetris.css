@@ -1,0 +1,131 @@
+body,html
+{
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+}
+
+#panel
+{
+    height: 100%;
+    width: 100%;    
+}
+
+#mainTable
+{
+    background-color: #BBBBBB;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+}
+
+#leftPanel
+{
+    vertical-align: top;
+}
+
+#middlePanel
+{
+    height: 100%;    
+}
+
+#rightPanel
+{
+    height: 100%;
+}
+
+#middleCell, #rightCell
+{
+    height: 100%;
+}
+
+#movementButtonCell
+{
+    height: auto;
+    vertical-align: bottom;
+}
+
+#controlButtonCell
+{
+    height: 1px;
+    vertical-align: top;
+}
+
+#previewCell, #glassCell
+{
+}
+
+#scoreCell
+{
+    height: auto;
+    vertical-align: top;
+}
+
+#controlButtonTable
+{
+    width: 100%;
+}
+
+#scoreTable
+{
+    width: 100%;
+}
+
+.scoreValue
+{
+    text-align: right;
+}
+
+.movementButton
+{
+    width: 4em;
+}
+
+.controlButton
+{
+    width: 100%;
+}
+
+.checkbox
+{
+    font-size: 1em;
+    margin: .75em;
+}
+
+#dropButton
+{
+    width: 100%;
+}
+
+#previewCanvas
+{
+}
+
+.canvasCell
+{
+    padding: 5px;
+    vertical-align: top;
+    height: 100%;
+}
+
+.no-close .ui-dialog-titlebar-close
+{
+    display: none;
+}
+
+#highScorePanel
+{
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.highScoreCell
+{
+    text-align: center;
+}
+
+#highScoreOkButton
+{
+    margin: .75em;
+}
