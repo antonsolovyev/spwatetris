@@ -1,132 +1,126 @@
 <table id="tetrisPanel">
     <tr>
-        <td>
-            <table id="tetrisMainTable">
+        <td id="tetrisLeftCell">
+            <table id="tetrisLeftPanel">
                 <tr>
-                    <td id="tetrisLeftPanel">
-                        <table id="tetrisLeftCell">
+                    <td class="canvasCell" id="previewCell">
+                        <canvas id="previewCanvas"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="scoreCell">
+                        <table id="scoreTable">
                             <tr>
-                                <td class="canvasCell" id="previewCell">
-                                    <canvas id="previewCanvas"/>
+                                <td><span class="ui-widget">Score:</span></td>
+                                <td class="scoreValue"><span id="scoreSpan" class="ui-widget"/></td>
+                            </tr>
+                            <tr>
+                                <td><span class="ui-widget">Speed:</span></td>
+                                <td class="scoreValue"><span id="speedSpan" class="ui-widget"/></td>
+                            </tr>
+                            <tr>
+                                <td><span class="ui-widget">Lines:</span></td>
+                                <td class="scoreValue"><span id="linesSpan" class="ui-widget"/></td>
+                            </tr>
+                            <tr>
+                                <td><span class="ui-widget">Pieces:</span></td>
+                                <td class="scoreValue"><span id="piecesSpan" class="ui-widget"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td id="tetrisMiddleCell">
+            <table id="tetrisMiddlePanel">
+                <tr>
+                    <td class="canvasCell">
+                        <canvas id="gameCanvas"/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td id="tetrisRightCell">
+            <table id="tetrisRightPanel">
+                <tr>
+                    <td id="controlButtonCell">
+                        <table id="controlButtonTable" boder="1">
+                            <tr>
+                                <td>
+                                    <button type="button" id="newGameButton"
+                                            class="controlButton ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
+                                        <span class="ui-button-text">New game</span>
+                                    </button>
                                 </td>
                             </tr>
                             <tr>
-                                <td id="scoreCell">
-                                    <table id="scoreTable">
-                                        <tr>
-                                            <td><span class="ui-widget">Score:</span></td>
-                                            <td class="scoreValue"><span id="scoreSpan" class="ui-widget"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="ui-widget">Speed:</span></td>
-                                            <td class="scoreValue"><span id="speedSpan" class="ui-widget"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="ui-widget">Lines:</span></td>
-                                            <td class="scoreValue"><span id="linesSpan" class="ui-widget"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="ui-widget">Pieces:</span></td>
-                                            <td class="scoreValue"><span id="piecesSpan" class="ui-widget"/></td>
-                                        </tr>
-                                    </table>
+                                <td>
+                                    <button type="button" id="pauseButton"
+                                            class="controlButton ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
+                                        <span id="pauseButtonText" class="ui-button-text">Pause</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" id="highScoreButton"
+                                            class="controlButton ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
+                                        <span class="ui-button-text">High scores</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="previewCheckBox"
+                                           class="controlCheckbox"/><label for="previewCheckBox" class="ui-widget">Show preview</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="gridCheckBox"
+                                           class="controlCheckbox"/><label for="gridCheckBox" class="ui-widget">Show grid</label>
                                 </td>
                             </tr>
                         </table>
                     </td>
-                    <td id="tetrisMiddlePanel">
-                        <table id="tetrisMiddleCell">
+                </tr>
+                <tr>
+                    <td id="movementButtonCell">
+                        <table>
                             <tr>
-                                <td class="canvasCell">
-                                    <canvas id="gameCanvas"/>
+                                <td rowspan="2">
+                                    <button type="button" id="moveLeftButton"
+                                            class="movementButton ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
+                                        <span class="ui-button-text">&larr;</span>
+                                    </button>
                                 </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td id="tetrisRightPanel">
-                        <table id="tetrisRightCell">
-                            <tr>
-                                <td id="controlButtonCell">
-                                    <table id="controlButtonTable" boder="1">
-                                        <tr>
-                                            <td>
-                                                <button type="button" id="newGameButton"
-                                                        class="controlButton ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
-                                                    <span class="ui-button-text">New game</span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <button type="button" id="pauseButton"
-                                                        class="controlButton ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
-                                                    <span id="pauseButtonText" class="ui-button-text">Pause</span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <button type="button" id="highScoreButton"
-                                                        class="controlButton ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
-                                                    <span class="ui-button-text">High scores</span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" id="previewCheckBox"
-                                                       class="controlCheckbox"/><label for="previewCheckBox" class="ui-widget">Show preview</label>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="checkbox" id="gridCheckBox"
-                                                       class="controlCheckbox"/><label for="gridCheckBox" class="ui-widget">Show grid</label>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                <td>
+                                    <button type="button" id="rotateCounterClockwiseButton"
+                                            class="movementButton ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
+                                        <span class="ui-button-text">&cularr;</span>
+                                    </button>
+                                </td>
+                                <td rowspan="2">
+                                    <button type="button" id="moveRightButton"
+                                            class="movementButton ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
+                                        <span class="ui-button-text">&rarr;</span>
+                                    </button>
                                 </td>
                             </tr>
                             <tr>
-                                <td id="movementButtonCell">
-                                    <table>
-                                        <tr>
-                                            <td rowspan="2">
-                                                <button type="button" id="moveLeftButton"
-                                                        class="movementButton ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
-                                                    <span class="ui-button-text">&larr;</span>
-                                                </button>
-                                            </td>
-                                            <td>
-                                                <button type="button" id="rotateCounterClockwiseButton"
-                                                        class="movementButton ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
-                                                    <span class="ui-button-text">&cularr;</span>
-                                                </button>
-                                            </td>
-                                            <td rowspan="2">
-                                                <button type="button" id="moveRightButton"
-                                                        class="movementButton ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
-                                                    <span class="ui-button-text">&rarr;</span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <button type="button" id="rotateClockwiseButton"
-                                                        class="movementButton ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
-                                                    <span class="ui-button-text">&curarr;</span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" align="center">
-                                                <button type="button" id="dropButton"
-                                                        class="movementButton ui-button ui-button-active ui-widget ui-corner-all ui-button-text-only ui-state-hover">
-                                                    <span class="ui-button-text">&darr;</span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                <td>
+                                    <button type="button" id="rotateClockwiseButton"
+                                            class="movementButton ui-button ui-widget ui-corner-all ui-button-text-only ui-state-hover">
+                                        <span class="ui-button-text">&curarr;</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" align="center">
+                                    <button type="button" id="dropButton"
+                                            class="movementButton ui-button ui-button-active ui-widget ui-corner-all ui-button-text-only ui-state-hover">
+                                        <span class="ui-button-text">&darr;</span>
+                                    </button>
                                 </td>
                             </tr>
                         </table>

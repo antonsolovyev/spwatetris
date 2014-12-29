@@ -12,37 +12,28 @@ body,html
     display: none;
 }
 
-/* Tetris view */
-#tetrisPanel
+#pageTable, #page
 {
     height: 100%;
-    width: 100%;    
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#tetrisMainTable
+/* Tetris view */
+#tetrisPanel
 {
     background-color: #BBBBBB;
     margin-left: auto;
     margin-right: auto;
-    height: 100%;
+    height: 0%;
 }
 
-#tetrisLeftPanel
+#tetrisLeftCell
 {
     vertical-align: top;
 }
 
-#tetrisMiddlePanel
-{
-    height: 100%;    
-}
-
-#tetrisRightPanel
-{
-    height: 100%;
-}
-
-#tetrisMiddleCell, #tetrisRightCell
+#tetrisMiddlePanel, #tetrisRightPanel, #tetrisMiddleCell, #tetrisRightCell
 {
     height: 100%;
 }
@@ -121,6 +112,7 @@ body,html
 {
     margin: 0 auto;
     border-collapse: collapse;
+    height: 0%;
 }
 
 #highScorePanel td
@@ -147,6 +139,8 @@ body,html
 #highScoreTable td, #highScoreTable th
 {
     border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #highScoreTable tr:first-child th
