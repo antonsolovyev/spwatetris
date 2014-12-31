@@ -1001,8 +1001,14 @@ TETRIS.tetrisView = function(spec)
         previewCheckBox.prop('checked', isPreviewShown);
         previewCheckBox.click(function()
         {
-            isPreviewShown = false;
-            
+            if(isPreviewShown)
+            {
+                isPreviewShown = false;
+            }
+            else
+            {
+                isPreviewShown = true;
+            }
             refresh();
         });
     };
@@ -1012,7 +1018,14 @@ TETRIS.tetrisView = function(spec)
         gridCheckBox.prop('checked', isGridShown);
         gridCheckBox.click(function()
         {
-            isGridShown = false;
+            if(isGridShown)
+            {
+                isGridShown = false;
+            }
+            else
+            {
+                isGridShown = true;
+            }
             
             refresh();
         });
@@ -1175,6 +1188,8 @@ TETRIS.highScoresView = function(spec)
                 var template = _.template(_.getFromUrl('/template/highScoreView.html'));
                 
                 that.$el.html(template({'highScoreList': highScoreList.models}));
+                
+                jQuery('#highScoreOkButton').focus();
             }    
         });
     };
