@@ -1194,7 +1194,11 @@ TETRIS.highScoresView = function(spec)
                 that.$el.html(template({'highScoreList': highScoreList.models}));
                 
                 jQuery('#highScoreOkButton').focus();
-            }    
+            },
+            error: function()
+            {
+                alert('Error retrieving high scores!');
+            }
         });
     };
     
@@ -1267,6 +1271,10 @@ TETRIS.application = function(spec)
                 {
                     showNameInputDialog(tetrisEngine.score);
                 }
+            },
+            error: function()
+            {
+                alert('Error checking for high score!');
             },
             dataType: 'json'
         });
@@ -1350,7 +1358,14 @@ TETRIS.application = function(spec)
                         url: url,
                         method: "GET",
                         async: false,
-                        success: function(data){res = data;}
+                        success: function(data)
+                        {
+                            res = data;
+                        },
+                        error: function()
+                        {
+                            alert('Error retrieving data from a URL!');
+                        }
                     });
 
                     this.cache[url] = res;
