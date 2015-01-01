@@ -733,10 +733,7 @@ TETRIS.tetrisView = function(spec)
     
     var drawCellIntoRect = function(canvas, cell, rect)
     {
-        var image = new Image();
-        image.src = 'image/' + colorToImage[cell.color.name];
-        
-        canvas.getContext('2d').drawImage(image, rect.left, rect.top, rect.width(), rect.height());        
+        canvas.getContext('2d').drawImage(colorToImage[cell.color.name], rect.left, rect.top, rect.width(), rect.height());        
     };
 
     var drawCell = function(cell)
@@ -827,14 +824,21 @@ TETRIS.tetrisView = function(spec)
     var initColorToImage = function()
     {
         colorToImage = {};
-        colorToImage[TETRIS.Color.CYAN.name] = 'cell_cyan.png';
-        colorToImage[TETRIS.Color.BLUE.name] = 'cell_blue.png';
-        colorToImage[TETRIS.Color.ORANGE.name] = 'cell_orange.png';
-        colorToImage[TETRIS.Color.YELLOW.name] = 'cell_yellow.png';
-        colorToImage[TETRIS.Color.GREEN.name] = 'cell_green.png';
-        colorToImage[TETRIS.Color.PURPLE.name] = 'cell_magenta.png';
-        colorToImage[TETRIS.Color.RED.name] = 'cell_red.png';
+        colorToImage[TETRIS.Color.CYAN.name] = makeImage('image/cell_cyan.png');
+        colorToImage[TETRIS.Color.BLUE.name] = makeImage('image/cell_blue.png');
+        colorToImage[TETRIS.Color.ORANGE.name] = makeImage('image/cell_orange.png');
+        colorToImage[TETRIS.Color.YELLOW.name] = makeImage('image/cell_yellow.png');
+        colorToImage[TETRIS.Color.GREEN.name] = makeImage('image/cell_green.png');
+        colorToImage[TETRIS.Color.PURPLE.name] = makeImage('image/cell_magenta.png');
+        colorToImage[TETRIS.Color.RED.name] = makeImage('image/cell_red.png');
     };
+    
+    var makeImage = function(src)
+    {
+        var res = new Image();
+        res.src = src;
+        return res;
+    }
 
     var initGameCanvasSize = function()
     {
@@ -1100,8 +1104,6 @@ TETRIS.tetrisView = function(spec)
 
         initCellSize();
 
-        initColorToImage();
-
         initGameCanvasSize();
 
         initPreviewCanvasSize();
@@ -1113,6 +1115,8 @@ TETRIS.tetrisView = function(spec)
     
     initTetrisEngine()
 
+    initColorToImage();
+    
     tetrisEngine.addListener(that);
     
     tetrisEngine.start();

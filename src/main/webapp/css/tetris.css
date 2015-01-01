@@ -141,6 +141,8 @@ body,html
 {
     border: 1px solid black;
     padding: .5em;
+    padding-bottom: .4em;
+    padding-top: .4em;
 }
 
 #highScoreTable tr:first-child th
