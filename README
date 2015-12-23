@@ -1,0 +1,9 @@
+Run locally:
+
+mvn appengine:devserver
+
+Push to app anegine:
+
+mvn appengine:update
+
+git push origin maste
