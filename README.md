@@ -6,8 +6,8 @@ https://en.wikipedia.org/wiki/Tetris
 
 1. To run locally:
 
-mvn appengine:devserver
+    `mvn appengine:devserver`
 
 2. Push to Google app engine:
 
-mvn appengine:update
+    `mvn appengine:update`
