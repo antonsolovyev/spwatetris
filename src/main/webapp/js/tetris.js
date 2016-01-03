@@ -399,7 +399,7 @@ TETRIS.tetrisEngine = function(spec)
     {
         // console.log('tick, tetrisEngine: ' + that);
         // console.log('state: ' + that.gameState);
-        
+
         if(moveTimer !== 0)
         {
             moveTimer--;
